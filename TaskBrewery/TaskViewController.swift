@@ -6,7 +6,9 @@
 //  Copyright © 2017 Ankur Kumar. All rights reserved.
 //
 
+
 import UIKit
+import TwitterKit
 
 class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -86,20 +88,23 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             if (task.isImportant){
                 
-                let alert = UIAlertController(title: "Share", message: "Horray! Buy yourself a 🍺 and Share on Twitter", preferredStyle: .actionSheet)
+                let composer = TWTRComposer()
                 
-                let actionOne = UIAlertAction(title: "Share on Twitter", style: .default){(action) in
-                    print ("Shared")}
-                    
-                    
-                    
-                    
-                alert.addAction(actionOne)
-                self.present(alert,animated: true, completion: nil)
-            
-
+                composer.setText("I just earned right to buy myself a 🍺 by nailing a task at TaskBrewery")
+                composer.setImage(UIImage(named: "twitterkit"))
+                
+                // Called from a UIViewController
+                composer.show(from: self.navigationController!) { (result) in
+                    if (result == .done) {
+                    print("Successfully composed Tweet")
+                    } else {
+                    print("Cancelled composing")
+                    }
+                }
+                
+                
             }
-            
+                
             else {
                 context.delete(task)
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
