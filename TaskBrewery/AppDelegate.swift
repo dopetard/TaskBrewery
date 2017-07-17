@@ -9,19 +9,29 @@
 import UIKit
 import CoreData
 import TwitterKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
+            if !accepted {
+                print("Notification access denied.")
+            }
+        }
+        
         Twitter.sharedInstance().start(withConsumerKey:"7QVCOVcQR1H54jywF0kSmrKy1", consumerSecret:"iX9CyPDV4RSRGhubhzxaw08HrEeONtxE5XhfczwgpafXiUvzys")
         
         return true
     }
+
+    
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return Twitter.sharedInstance().application(app, open: url, options: options)
@@ -50,6 +60,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    
+    func scheduleNotification(at date: Date) {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents(in: .current, from: date)
+        let newComponents = DateComponents(calendar: calendar, timeZone: .current, month: components.month, day: components.day, hour: components.hour, minute: components.minute)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: newComponents, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Task Brewery 🍺"
+        content.body = "How's it going fam? Just a quick reminder that you gotta complete a task now! 🍺 for the win!"
+        content.sound = UNNotificationSound.default()
+        
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        }
+    }
+
 
     // MARK: - Core Data stack
 

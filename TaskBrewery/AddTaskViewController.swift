@@ -9,7 +9,18 @@
 import UIKit
 
 class AddTaskViewController: UIViewController {
+    
+    @IBOutlet weak var textFeild: UITextField!
+    
+    @IBOutlet weak var isImp: UISwitch!
 
+    @IBAction func datePickerDidSelectNewDate(_ sender: UIDatePicker) {
+        
+        let selectedDate = sender.date
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.scheduleNotification(at: selectedDate)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,17 +32,23 @@ class AddTaskViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnTapped(_ sender: Any) {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate!).persistentContainer.viewContext
+        let task = Task(context: context)
+        task.name = textFeild.text!
+        task.isImportant = isImp.isOn
+        
+        //Save the data to core data
+        
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        
+        navigationController!.popViewController(animated: true)
+        
+    }
     
 
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
