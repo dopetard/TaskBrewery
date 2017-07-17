@@ -9,9 +9,9 @@
 import UIKit
 
 class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet var tableView: UITableView!
-   
+    
     
     var tasks: [Task] = []
     override func viewDidLoad() {
@@ -19,7 +19,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.title = "Task Brewery"
         tableView.dataSource = self
         tableView.delegate = self
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -38,7 +38,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if task.isImportant{
             cell.textLabel?.text = "🍺\(task.name!)"
-
+            
             
             
         } else {
@@ -49,9 +49,9 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func getData() {
-       let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
-        tasks = try context.fetch(Task.fetchRequest())
+            tasks = try context.fetch(Task.fetchRequest())
         }
         catch {
             
@@ -81,15 +81,45 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let more = UITableViewRowAction(style: .default, title: "Done") { (action:UITableViewRowAction, indexPath:IndexPath) in
             print("more at:\(indexPath)")
             
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            let task = self.tasks[indexPath.row]
+            
+            if (task.isImportant){
+                
+                let alert = UIAlertController(title: "Share", message: "Horray! Buy yourself a 🍺 and Share on Twitter", preferredStyle: .actionSheet)
+                
+                let actionOne = UIAlertAction(title: "Share on Twitter", style: .default){(action) in
+                    print ("Shared")}
+                    
+                    
+                    
+                    
+                alert.addAction(actionOne)
+                self.present(alert,animated: true, completion: nil)
+            
+
+            }
+            
+            else {
+                context.delete(task)
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                do {
+                    self.tasks = try context.fetch(Task.fetchRequest())
+                }
+                catch {
+                    print ("Fetching failed")
+                }
+                tableView.reloadData()
+            }
         }
         more.backgroundColor = .orange
         
         return [delete, more]
     }
-
-
-
-
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
