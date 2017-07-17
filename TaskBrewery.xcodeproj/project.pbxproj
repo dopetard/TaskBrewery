@@ -41,10 +41,10 @@
 		5829C9F02A9F798BA832D0C4 /* Pods-TaskBrewery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskBrewery.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskBrewery/Pods-TaskBrewery.release.xcconfig"; sourceTree = "<group>"; };
 		77984FA7DD2492BEA1B68ED4 /* Pods-TaskBreweryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskBreweryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskBreweryTests/Pods-TaskBreweryTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDCD8DBA81360418DD2E1167 /* Pods-TaskBreweryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskBreweryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskBreweryUITests/Pods-TaskBreweryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C12DE4731F1D0CA7004953D9 /* TaskBrewery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TaskBrewery.app; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBrewery.app"; sourceTree = "<absolute>"; };
+		C12DE4751F1D0CA7004953D9 /* TaskBreweryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TaskBreweryUITests.xctest; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBreweryUITests.xctest"; sourceTree = "<absolute>"; };
+		C1525C731F1D0CD100575862 /* TaskBreweryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TaskBreweryTests.xctest; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBreweryTests.xctest"; sourceTree = "<absolute>"; };
 		C179FF991F18733900296DB8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		C179FFAF1F19BB0300296DB8 /* TaskBrewery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TaskBrewery.app; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBrewery.app"; sourceTree = "<absolute>"; };
-		C179FFB01F19BB0300296DB8 /* TaskBreweryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TaskBreweryTests.xctest; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBreweryTests.xctest"; sourceTree = "<absolute>"; };
-		C179FFB11F19BB0300296DB8 /* TaskBreweryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TaskBreweryUITests.xctest; path = "/Users/ankurkumar/Documents/TaskBrewery/build/Debug-iphoneos/TaskBreweryUITests.xctest"; sourceTree = "<absolute>"; };
 		C179FFB21F19BBF900296DB8 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		C179FFB61F19ED4E00296DB8 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		C1BE1BF61F17834B00A9C378 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 			);
 			name = TaskBrewery;
 			productName = TaskBrewery;
-			productReference = C179FFAF1F19BB0300296DB8 /* TaskBrewery.app */;
+			productReference = C12DE4731F1D0CA7004953D9 /* TaskBrewery.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C1BE1C091F17834C00A9C378 /* TaskBreweryTests */ = {
@@ -195,7 +195,7 @@
 			);
 			name = TaskBreweryTests;
 			productName = TaskBreweryTests;
-			productReference = C179FFB01F19BB0300296DB8 /* TaskBreweryTests.xctest */;
+			productReference = C1525C731F1D0CD100575862 /* TaskBreweryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C1BE1C141F17834C00A9C378 /* TaskBreweryUITests */ = {
@@ -216,7 +216,7 @@
 			);
 			name = TaskBreweryUITests;
 			productName = TaskBreweryUITests;
-			productReference = C179FFB11F19BB0300296DB8 /* TaskBreweryUITests.xctest */;
+			productReference = C12DE4751F1D0CA7004953D9 /* TaskBreweryUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */

@@ -59,28 +59,34 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        if editingStyle == .delete{
-            
-            let task = tasks[indexPath.row]
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .default, title: "Delete") { (action:UITableViewRowAction, indexPath:IndexPath) in
+            print("delete at:\(indexPath)")
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            let task = self.tasks[indexPath.row]
             context.delete(task)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             do {
-                tasks = try context.fetch(Task.fetchRequest())
+                self.tasks = try context.fetch(Task.fetchRequest())
             }
             catch {
-                
-                print("Fetching failed")
+                print ("Fetching failed")
             }
+            tableView.reloadData()
             
-                
-            }
-        tableView.reloadData()
+        }
+        delete.backgroundColor = .red
         
-       
+        let more = UITableViewRowAction(style: .default, title: "Done") { (action:UITableViewRowAction, indexPath:IndexPath) in
+            print("more at:\(indexPath)")
+            
+        }
+        more.backgroundColor = .orange
+        
+        return [delete, more]
     }
+
 
 
 
