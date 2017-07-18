@@ -8,12 +8,15 @@
 
 import UIKit
 
-class AddTaskViewController: UIViewController {
+
+
+class AddTaskViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var textFeild: UITextField!
     
     @IBOutlet weak var isImp: UISwitch!
-
+   
+    
     @IBAction func datePickerDidSelectNewDate(_ sender: UIDatePicker) {
         
         let selectedDate = sender.date
@@ -23,14 +26,23 @@ class AddTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.textFeild.delegate = self as UITextFieldDelegate
+
 
         // Do any additional setup after loading the view.
     }
-
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
     
     @IBAction func btnTapped(_ sender: Any) {
         
