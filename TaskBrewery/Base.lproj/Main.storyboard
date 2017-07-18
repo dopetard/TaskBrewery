@@ -20,7 +20,18 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundtest" translatesAutoresizingMaskIntoConstraints="NO" id="SQo-Af-xp9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SQo-Af-xp9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DUR-vv-Lht"/>
+                            <constraint firstItem="SQo-Af-xp9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ONK-Ub-Dpt"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SQo-Af-xp9" secondAttribute="bottom" id="fFA-p9-BiV"/>
+                            <constraint firstAttribute="trailing" secondItem="SQo-Af-xp9" secondAttribute="trailing" id="sL0-6J-mjE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vPl-Ie-qRs"/>
                     <connections>
@@ -86,8 +97,9 @@
                                 </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2g-Ar-unI">
-                                <rect key="frame" x="144" y="563" width="87" height="30"/>
+                                <rect key="frame" x="131" y="564" width="112" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="ADD TASK"/>
                                 <connections>
                                     <action selector="btnTapped:" destination="bif-3x-P62" eventType="touchUpInside" id="OfW-ys-BWW"/>
@@ -100,14 +112,14 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vI3-ZT-Oqh">
                                 <rect key="frame" x="118" y="175" width="138" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task too hard? Enable 🍺 Motivation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmj-VG-9dy">
-                                <rect key="frame" x="36" y="432" width="303" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Promise yourself a beer 🍺 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmj-VG-9dy">
+                                <rect key="frame" x="43" y="425" width="303" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -142,4 +154,7 @@
             <point key="canvasLocation" x="653.60000000000002" y="128.18590704647679"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="backgroundtest" width="919" height="1369"/>
+    </resources>
 </document>
