@@ -26,6 +26,8 @@ class AddTaskViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
+
         self.textFeild.delegate = self as UITextFieldDelegate
 
 

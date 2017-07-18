@@ -18,6 +18,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tasks: [Task] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.title = "Task Brewery"
         tableView.dataSource = self
         tableView.delegate = self
@@ -26,6 +27,11 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated);
+        self.navigationController?.isNavigationBarHidden = false
+        
+        
         //get the data from core data
         getData()
         
