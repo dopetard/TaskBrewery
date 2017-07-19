@@ -23,7 +23,56 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         
+        effect = visualEffectView.effect
+        visualEffectView.effect = nil
+        
+        addItemView.layer.cornerRadius = 5
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func animateIn() {
+        
+        self.view.addSubview(addItemView)
+        addItemView.center = self.view.center
+        addItemView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        addItemView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.visualEffectView.effect = self.effect
+            self.addItemView.alpha = 1
+            self.addItemView.transform = CGAffineTransform.identity
+        }
+        
+    }
+    
+    func animateOut(){
+        
+        UIView.animate(withDuration: 0.3, animations: { 
+            self.addItemView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.addItemView.alpha = 0
+            
+            self.visualEffectView.effect = nil
+            
+        }) { (sucess: Bool ) in
+            
+            self.addItemView.removeFromSuperview()
+        }
+        
+    }
+    
+    
+    @IBAction func ClearBeer(_ sender: Any) {
+        
+        animateOut()
+        
+    }
+    
+    
+    @IBAction func ShowBeer(_ sender: Any) {
+        
+        animateIn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,18 +88,32 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData()
     }
     
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    
+    @IBOutlet var addItemView: UIView!
+    var effect:UIVisualEffect!
+    
+    @IBAction func dismissPopup(_ sender: UIButton) {
+        
+        animateOut()
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        
+        cell.textLabel?.font = UIFont(name:"AvenirNextCondensed-regular", size: 16)
         
         let task = tasks[indexPath.row]
         
         if task.isImportant{
-            cell.textLabel?.text = "🍺\(task.name!)"
+            cell.textLabel?.text = "🍺   \(task.name!)"
             
             
             
         } else {
-            cell.textLabel?.text = task.name!
+            cell.textLabel?.text = "   \(task.name!)"
         }
         
         return cell
