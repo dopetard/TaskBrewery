@@ -21,7 +21,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberOfBeer.text = String (beer)
+        
 
         self.title = "Task Brewery"
         tableView.dataSource = self
@@ -82,6 +82,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func ShowBeer(_ sender: Any) {
         
         animateIn()
+        numberOfBeer.text = String.init(describing: beer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +165,6 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let task = self.tasks[indexPath.row]
-            var beer = self.beer
                 if (task.isImportant){
                 let composer = TWTRComposer()
                 
@@ -175,7 +175,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 composer.show(from: self.navigationController!) { (result) in
                     if (result == .done) {
                     print("Successfully composed Tweet")
-                    beer+=1
+                        self.beer = self.beer + 1
                     } else {
                     print("Cancelled composing")
                         
