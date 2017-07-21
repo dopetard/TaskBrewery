@@ -64,6 +64,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="OTC-yx-XRd">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="z66-Ij-wv0">
+                            <connections>
+                                <action selector="LogoutButton:" destination="enD-i4-f74" id="GqC-8s-mIf"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="prF-LG-X3d">
                                 <connections>

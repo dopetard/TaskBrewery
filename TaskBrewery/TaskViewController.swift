@@ -98,6 +98,20 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData()
     }
     
+    @IBAction func LogoutButton(_ sender: Any) {
+        
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+            print ("logged out")
+            
+            _ = navigationController?.popToRootViewController(animated: true)
+            
+        }
+        
+        
+    }
+    
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
     @IBOutlet var addItemView: UIView!
