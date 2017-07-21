@@ -21,6 +21,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         
 
         self.title = "Task Brewery"
@@ -35,6 +36,14 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // Do any additional setup after loading the view.
     }
+    
+final class alertController : UIAlertController {
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
+    }
+}
     
 
     
@@ -89,6 +98,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         super.viewWillAppear(animated);
         self.navigationController?.isNavigationBarHidden = false
+
         
         
         //get the data from core data
@@ -106,6 +116,16 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
             print ("logged out")
             
             _ = navigationController?.popToRootViewController(animated: true)
+            
+            let alertController = UIAlertController(title: "logged out", message: "Sucessfully logged out, Login again to continue", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+            
+            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+            alertWindow.rootViewController = UIViewController()
+            alertWindow.windowLevel = UIWindowLevelAlert + 1;
+            alertWindow.makeKeyAndVisible()
+            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+            
             
         }
         
@@ -126,6 +146,8 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        
+
         
         cell.textLabel?.font = UIFont(name:"AvenirNextCondensed-regular", size: 16)
         
@@ -190,6 +212,9 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if (result == .done) {
                     print("Successfully composed Tweet")
                         self.beer = self.beer + 1
+                        context.delete(task)
+                        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+
                     } else {
                     print("Cancelled composing")
                         
@@ -219,6 +244,7 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return tasks.count
     }
     
