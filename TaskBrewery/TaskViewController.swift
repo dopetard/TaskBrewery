@@ -10,14 +10,19 @@
 import UIKit
 import TwitterKit
 
+
+
 class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
-    
+    var beer: Int = 0
     var tasks: [Task] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
 
         self.title = "Task Brewery"
         tableView.dataSource = self
@@ -31,6 +36,16 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // Do any additional setup after loading the view.
     }
+    
+final class alertController : UIAlertController {
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
+    }
+}
+    
+
     
     func animateIn() {
         
@@ -65,20 +80,25 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func ClearBeer(_ sender: Any) {
         
-        animateOut()
+        numberOfBeer.text = String("No Beer 😔")
         
     }
+    
+    @IBOutlet weak var numberOfBeer: UILabel!
+    
     
     
     @IBAction func ShowBeer(_ sender: Any) {
         
         animateIn()
+        numberOfBeer.text = String.init(describing: beer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated);
         self.navigationController?.isNavigationBarHidden = false
+
         
         
         //get the data from core data
@@ -86,6 +106,30 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //reload  the table view
         tableView.reloadData()
+    }
+    
+    @IBAction func LogoutButton(_ sender: Any) {
+        
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+            print ("logged out")
+            
+            _ = navigationController?.popToRootViewController(animated: true)
+            
+            let alertController = UIAlertController(title: "logged out", message: "Sucessfully logged out, Login again to continue", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+            
+            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+            alertWindow.rootViewController = UIViewController()
+            alertWindow.windowLevel = UIWindowLevelAlert + 1;
+            alertWindow.makeKeyAndVisible()
+            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+            
+            
+        }
+        
+        
     }
     
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -103,6 +147,8 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         
+
+        
         cell.textLabel?.font = UIFont(name:"AvenirNextCondensed-regular", size: 16)
         
         let task = tasks[indexPath.row]
@@ -110,13 +156,13 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if task.isImportant{
             cell.textLabel?.text = "🍺   \(task.name!)"
             
-            
-            
         } else {
             cell.textLabel?.text = "   \(task.name!)"
         }
+
         
         return cell
+        
     }
     
     func getData() {
@@ -152,11 +198,10 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let more = UITableViewRowAction(style: .default, title: "Done") { (action:UITableViewRowAction, indexPath:IndexPath) in
             print("more at:\(indexPath)")
             
+            
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let task = self.tasks[indexPath.row]
-            
-            if (task.isImportant){
-                
+                if (task.isImportant){
                 let composer = TWTRComposer()
                 
                 composer.setText("I just earned right to buy myself a 🍺 by nailing a task at TaskBrewery")
@@ -166,11 +211,15 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 composer.show(from: self.navigationController!) { (result) in
                     if (result == .done) {
                     print("Successfully composed Tweet")
+                        self.beer = self.beer + 1
+                        context.delete(task)
+                        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+
                     } else {
                     print("Cancelled composing")
+                        
                     }
                 }
-                
                 
             }
                 
@@ -188,13 +237,14 @@ class TaskViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         more.backgroundColor = .orange
         
-        return [delete, more]
+        return [delete, more, ]
     }
     
     
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return tasks.count
     }
     

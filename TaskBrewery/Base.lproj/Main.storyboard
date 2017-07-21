@@ -47,7 +47,7 @@
         <scene sceneID="k96-gy-WqB">
             <objects>
                 <viewController id="enD-i4-f74" customClass="TaskViewController" customModule="TaskBrewery" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tuI-nB-m7W">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tuI-nB-m7W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,6 +64,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="OTC-yx-XRd">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="z66-Ij-wv0">
+                            <connections>
+                                <action selector="LogoutButton:" destination="enD-i4-f74" id="GqC-8s-mIf"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="prF-LG-X3d">
                                 <connections>
@@ -79,6 +84,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addItemView" destination="fhx-sn-NKU" id="Vm5-09-uze"/>
+                        <outlet property="numberOfBeer" destination="pwP-dA-eEz" id="4bh-3o-cU2"/>
                         <outlet property="tableView" destination="tuI-nB-m7W" id="7v3-sp-R7g"/>
                         <outlet property="visualEffectView" destination="DjI-qp-l7Z" id="ZWP-14-c0s"/>
                     </connections>
@@ -119,6 +125,13 @@
                                 <action selector="ClearBeer:" destination="enD-i4-f74" eventType="touchUpInside" id="Ct6-k1-tTa"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwP-dA-eEz">
+                            <rect key="frame" x="26" y="67" width="185" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.098039215686274508" green="0.34509803921568627" blue="0.98431372549019602" alpha="0.13717358732876711" colorSpace="calibratedRGB"/>
                     <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
