@@ -214,6 +214,13 @@ final class alertController : UIAlertController {
                         self.beer = self.beer + 1
                         context.delete(task)
                         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                        do {
+                            self.tasks = try context.fetch(Task.fetchRequest())
+                        }
+                        catch {
+                            print ("Fetching failed")
+                        }
+                        tableView.reloadData()
 
                     } else {
                     print("Cancelled composing")
