@@ -169,7 +169,7 @@ final class alertController : UIAlertController {
             cell.textLabel?.text = "🍺   \(task.name!)"
             
         } else {
-            cell.textLabel?.text = "   \(task.name!)"
+            cell.textLabel?.text = "  \(task.name!)"
         }
 
         
@@ -192,6 +192,7 @@ final class alertController : UIAlertController {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .default, title: "Delete") { (action:UITableViewRowAction, indexPath:IndexPath) in
             print("delete at:\(indexPath)")
+            
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let task = self.tasks[indexPath.row]
             context.delete(task)
@@ -214,18 +215,9 @@ final class alertController : UIAlertController {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let task = self.tasks[indexPath.row]
                 if (task.isImportant){
-                let composer = TWTRComposer()
-                
-                composer.setText("I just earned right to buy myself a 🍺 by nailing a task at TaskBrewery")
-                composer.setImage(UIImage(named: "twitterkit"))
-                
-                // Called from a UIViewController
-                composer.show(from: self.navigationController!) { (result) in
-                    if (result == .done) {
-                    print("Successfully composed Tweet")
-                        self.beer = self.beer + 1
-                        context.delete(task)
-                        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                    self.beer = self.beer + 1
+                    context.delete(task)
+                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
                         do {
                             self.tasks = try context.fetch(Task.fetchRequest())
                         }
@@ -233,12 +225,19 @@ final class alertController : UIAlertController {
                             print ("Fetching failed")
                         }
                         tableView.reloadData()
+                    let composer = TWTRComposer()
+                    
+                    composer.setText("I just earned right to buy myself a 🍺 by nailing a task at TaskBrewery")
+                    composer.setImage(UIImage(named: "twitterkit"))
+                    
+                    // Called from a UIViewController
+                    composer.show(from: self.navigationController!) { (result) in
+                        if (result == .done) {
+                            print("Successfully composed Tweet")
+                            
+                        } else {
+                            print("Cancelled composing") } }
 
-                    } else {
-                    print("Cancelled composing")
-                        
-                    }
-                }
                 
             }
                 
