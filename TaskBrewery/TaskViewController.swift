@@ -110,25 +110,37 @@ final class alertController : UIAlertController {
     
     @IBAction func LogoutButton(_ sender: Any) {
         
-        let store = Twitter.sharedInstance().sessionStore
-        if let userID = store.session()?.userID {
-            store.logOutUserID(userID)
-            print ("logged out")
+        
+        let alertController = UIAlertController(title: "Log out", message: "Are you sure you want to logout?", preferredStyle: .alert)
+        
+        // Create OK button
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
             
-            _ = navigationController?.popToRootViewController(animated: true)
             
-            let alertController = UIAlertController(title: "logged out", message: "Sucessfully logged out, Login again to continue", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
             
-            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-            alertWindow.rootViewController = UIViewController()
-            alertWindow.windowLevel = UIWindowLevelAlert + 1;
-            alertWindow.makeKeyAndVisible()
-            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+            let store = Twitter.sharedInstance().sessionStore
+            if let userID = store.session()?.userID {
+                store.logOutUserID(userID)
+                print ("logged out")
+                
+                
+                self.navigationController?.popToRootViewController(animated: true) }
+
             
+            // Code in this block will trigger when OK button tapped.
+            print("Ok button tapped");
             
         }
+        alertController.addAction(OKAction)
         
+        // Create Cancel button
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            print("Cancel button tapped");
+        }
+        alertController.addAction(cancelAction)
+        
+        // Present Dialog message
+        self.present(alertController, animated: true, completion:nil)
         
     }
     
